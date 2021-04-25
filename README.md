@@ -3,8 +3,8 @@
 
 ## Details
 ### Programming languages used
-* Node.js(For Each Modules)
-* Node.js Express(For Deployment)
+* Node.js (For Each Modules)
+* Node.js Express (For Deployment)
 
 ## 요구사항 명세
 

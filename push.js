@@ -1,16 +1,16 @@
 
 const admin = require('firebase-admin')
-let serAccount = require('./key.json')
+let serAccount = require('../capstone_backend/key.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(serAccount),
 })
-const registrationToken = "PUT YOUR DEVICE TOKEN HERE";
+const registrationToken = "TOKEN HERE";
 
 const fs = require('fs');
 
 function viewLog(){
-    const log = fs.readFileSync("C:\\Users\\gukma\\Desktop\\yolov4_fall_accident_detection\\test.txt").toString().split("\r\n");
+    const log = fs.readFileSync("PUT-YOUR-LOG-DIR-HERE\\test.txt").toString().split("\r\n");
     const late_log = log[log.length-2].split(", ");
     class_detected = late_log[1]
     is_detected = late_log[2]
@@ -40,7 +40,7 @@ function automation()
             payload = {
                 notification: {
                     title: "사용자의 낙상 탐지",
-                    body: "아이코오... 넘어졌넹..."
+                    body: "낙상이 탐지되었습니다. 연락요망"
                 }
             };
         }
@@ -48,7 +48,7 @@ function automation()
             payload = {
                 notification: {
                     title: "사용자가 도움을 요청함",
-                    body: "헬프헬프미!!!!"
+                    body: "사용자의 도움이 탐지되었습니다. 연락요망"
                 }
             };
         }

@@ -7,12 +7,12 @@ const io = require('socket.io')(server)
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const url = "http://49.50.162.112:80/"
+const url = "http://PUT-YOUR-URL-HERE/"
 
 // mongodb 연결 부분
 
 const { MONGO_ID, MONGO_PASSWORD, NODE_ENV } = process.env;
-const MONGO_URI = `mongodb://${MONGO_ID}:${MONGO_PASSWORD}@localhost:27017/test`;
+const MONGO_URI = `mongodb://${MONGO_ID}:${MONGO_PASSWORD}@PUT-YOUR-URL-HERE`;
 
 mongoose
     .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

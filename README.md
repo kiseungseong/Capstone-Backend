@@ -1,35 +1,95 @@
 # Capstone Server(Back-end)
-캡스톤디자인 백앤드서버 Repository
 
-## Details
-### Programming languages used
-* Node.js (For Each Modules)
-* Node.js Express (For Deployment)
+### How-to Run
 
-## 요구사항 명세
+1. Clone this repository to your computer(Node.js, Python is required)
 
-## 명세된 요구사항 모듈화
+2. Create .env file & put your mongoose ID, Password 
+
+3. Modify app_server.js(Server Env) or app_test.js(Desktop Env)
+
+   * IP address(10.0.2.2 if localhost) with 'url' & 'MONGO_URI'
+
+4. Add your app's key.json file to repository dir(if FCM needed)
+
+   * Modify log directory path & file name to yours
+
+5. Add your model's weights, cfg file(if FCM needed)
+
+   * Modify RTSP url to yours
+
+6. Run  app_server.js(Server Env) or app_test.js(Desktop Env)
+
+7. Run push.js & Detection.py(if FCM needed)
+
+   
+
+### PL & Programs used
+
+* Node.js, Express(Backend Architecture, Deployment)
+
+* Python(For Detecting, OpenCV)
+
+  MongoDB & Mongoose(Database)
+
+  
+
+#### Required Specific Module Version
+
+* Socket.io: Ver. 2.2.0 required(connection with android app written in Kotlin)
 
 
-## push.js 정리
-Role : Object Detecter에서 탐지하여 로깅한 기록을 받아들여 Push Alarm을 위해 FCM에 이를 전달하는 역활 
 
-## 중간발표 이후 진행예정사항 정리
-* 이미지 교환 서버 구축 (파일 업로드&다운로드 서버를 구축하는 것, 프론트에서 REST Form으로 요청하면 받을 수 있게)
-* 탐지 결과, 스냅톡 DB 구축 & 그룹 구분을 위한 정보 저장 필요 
-* 구현 모듈 Docker Container화(Docker, Kubernetes 사전지식 필요)
-* Latency 원인 탐색 및 최소화
-  - CCTV가 무선 연결
-  - 연산 돌리는 컴퓨터가 무선 연결
-  - Computing Power가 딸림(CPU 동작)
-* 개인정보보호를 위한 대책 마련 (주간계획 쓸 거 없을 때 써두자)
-  - DB 암호화(Secure DB?)
-* 구현 모듈 단위 테스트 및 통합 테스트
-* Naver Cloud에 Deploy
-  - 배포 프레임워크(Express) 사용법 숙지
+#### Difficulties in Developing
 
-## 우선순위 배정
+* Socket.io didn't work with our android application
 
-Express에 대한 학습, Latency 한번 유선으로 한번 해보는걸로...<br>
-if 해결되면 이걸로 끝, elif 안되면 세연테크에다가 메일을 보내보는 걸로...<br>
-DB(NoSQL)에 대한 학습(병행), 기존 프로토타입에다가 연결하기(로그)
+  &rarr; Problem fixed with using specific version of server-side Socket.io
+
+* Latency occured in object detecting(since CPU based detecting)
+
+  &rarr; Optimized Camera Settings to non-GPU detecting Environment
+
+  * GOP Structure : 60 &rarr; 15
+  * FPS : 30 &rarr; 5
+  * Resolution : 1080p &rarr; 320p
+  * TCP-based &rarr; UDP-based
+
+* Detection Program terminated unintentionally (stacked up too many frames , frame lost)
+
+  &rarr; modified detection process to multi-thread :
+
+  * Extracts frames from streaming media
+
+  * Analyzes each frame 
+
+  * Writes analyzed results to log
+
+    
+
+## Description(Kor)
+
+#### 요약
+
+*  YOLO-v4 기반 객체 탐지 모델과 IP 카메라를 이용하여 실시간으로 위험 상황(낙상사고, 화재, 침입) 탐지
+
+* 탐지된 결과를 기반으로 상황에 따른 위험상황 알림 메시지를 전송
+* one to one 텍스트, 이미지 채팅 지원
+
+#### 목적
+
+* AI를 이용하여 원격으로 대상의 안전을 관리하고, 간단한 소통이 가능하도록 채팅 기능 지원 
+
+#### 기대효과(프로젝트 전반)
+
+* 원격 안전 관리 & 부모-자녀 간 소통 증진 & 사용자 친화적 UI(Front-end)
+
+#### 차별점(프로젝트 전반)
+
+* AI 기반 행동 탐지로 기존 어플 대비 사생활침해 우려가 전혀 존재하지 않음
+* 같은 이유로 자동적이고 신속하게 위험 알림이 가능
+* 카메라만 설치되어 있다면 누구나 가지고 있는 스마트폰으로 쉽게 이용 가능
+
+#### 간략화한 서버 구성도
+
+![project_env](https://github.com/byungkookkoo/Capstone-Backend/blob/main/proejct-env.png)

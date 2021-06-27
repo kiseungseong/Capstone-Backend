@@ -92,4 +92,4 @@
 
 #### 간략화한 서버 구성도
 
-![project_env](https://github.com/byungkookkoo/Capstone-Backend/blob/main/proejct-env.png)
+![project_env](https://github.com/byungkookkoo/Capstone-Backend/blob/main/project-env.png)

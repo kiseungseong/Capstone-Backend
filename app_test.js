@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: '.env'});
 const express = require('express')
 const app = express()
 app.use(express.static('images')) // images 폴더를 읽도록 함
@@ -12,10 +12,9 @@ const url = "http://PUT-YOUR-URL-HERE/"
 // mongodb 연결 부분
 
 const { MONGO_ID, MONGO_PASSWORD, NODE_ENV } = process.env;
-const MONGO_URI = `mongodb://${MONGO_ID}:${MONGO_PASSWORD}@PUT-YOUR-URL-HERE`;
 
 mongoose
-    .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Successfully connected to mongodb'))
     .catch(e => console.error(e));
 
